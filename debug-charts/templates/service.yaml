@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axual-debug-gp.fullname" . }}
+  labels:
+    {{- include "axual-debug-gp.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "axual-debug-gp.selectorLabels" . | nindent 4 }}

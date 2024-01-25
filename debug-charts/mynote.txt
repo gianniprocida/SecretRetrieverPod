@@ -1,0 +1,21 @@
+The approach you prefer is to explicitly mount volumes from Kubernetes secrets
+ and make this process configurable. This means you want to give users, such as
+  operators, the ability to specify which secrets should be mounted and where they 
+  should be mounted when deploying a containerized application in Kubernetes. Here's a 
+  breakdown of what this approach entails:
+
+Explicit Volume Mounting: In Kubernetes, you can mount volumes, including secrets, 
+into pods. This allows you to expose files from these volumes to containers running inside
+ the pod. In your case, you want to mount secrets as volumes explicitly, so the data from
+  these secrets becomes available as regular files within the containers.
+
+Configurability: You want to make this process configurable, which means you want to allow
+ users (e.g., operators) to specify which secrets should be mounted and where they should 
+ be mounted. This configuration could be done through Helm values, which can be adjusted 
+ at deployment time.
+ 
+Dynamic Generation: To implement this configurability, you would create a Helm chart
+ that takes a list of secrets and their mount paths as configuration inputs.
+  Then, within your Helm templates, you would dynamically generate the necessary 
+  Kubernetes resource definitions (e.g., volumes and volume mounts) based on the
+   values provided in the Helm chart's values.yaml.
